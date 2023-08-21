@@ -8,22 +8,29 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/chroma-hnswlib-{{ version }}.tar.gz
   sha256: 87c6a0ced9e52ac7c8ca01ded25bb70c4a7f63f5871181eb18bea9111ce786c4
+  patches:
+    - 0001-Check-before-removing-march-native.patch
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv
-  number: 2
+  number: 1
+  script:
+    # HNSWLIB_NO_NATIVE is set to build without "--march=native"
+    - export HNSWLIB_NO_NATIVE=1 && {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv  # [unix]
+    - set HNSWLIB_NO_NATIVE=1 && {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv  # [win]
 
 requirements:
+  # see https://github.com/conda-forge/hnswlib-feedstock/blob/main/recipe/meta.yaml
   build:
-    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - python                                 # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
   host:
     - python
-    - setuptools >=42
-    - wheel
-    - numpy >=1.10.0
-    - pybind11 >=2.0
     - pip
+    - setuptools >=42
+    - pybind11 >=2.0
+    - numpy
   run:
     - python
     - {{ pin_compatible('numpy') }}
