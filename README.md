@@ -394,4 +394,5 @@ Feedstock Maintainers
 =====================
 
 * [@pavelzw](https://github.com/pavelzw/)
+* [@xhochy](https://github.com/xhochy/)
 
