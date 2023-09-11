@@ -1,5 +1,5 @@
 {% set name = "chroma-hnswlib" %}
-{% set version = "0.7.2" %}
+{% set version = "0.7.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/chroma-hnswlib-{{ version }}.tar.gz
-  sha256: 87c6a0ced9e52ac7c8ca01ded25bb70c4a7f63f5871181eb18bea9111ce786c4
+  sha256: b6137bedde49fffda6af93b0297fe00429fc61e5a072b1ed9377f909ed95a932
   patches:
     - 0001-Check-before-removing-march-native.patch
 
 build:
-  number: 3
+  number: 0
   script:
     # HNSWLIB_NO_NATIVE is set to build without "--march=native"
     - export HNSWLIB_NO_NATIVE=1 && {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv  # [unix]
