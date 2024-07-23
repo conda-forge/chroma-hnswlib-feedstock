@@ -1,5 +1,5 @@
 {% set name = "chroma-hnswlib" %}
-{% set version = "0.7.5" %}
+{% set version = "0.7.6" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 45537d0142ad0fadf712092b8be55de211613d0322627a1a2de05b6e800c2954
+  sha256: 4dce282543039681160259d29fcde6151cc9106c6461e0485f57cdccd83059b7
 
 build:
   number: 0
